@@ -1,0 +1,28 @@
+{
+  "name": "botstrap",
+  "version": "1.0.0",
+  "description": "A starting point for Discord bots",
+  "main": "bot.js",
+  "engines": {
+    "node": "^12.18.0"
+  },
+  "dependencies": {
+    "@sentry/node": "^5.24.2",
+    "discord-akairo": "^8.1.0",
+    "discord.js": "^12.3.1",
+    "esm": "^3.2.25",
+    "ms": "^2.1.2",
+    "pretty-ms": "^7.0.0",
+    "signale": "^1.4.0"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "snazzy": "^8.0.0",
+    "standard": "^14.3.4"
+  },
+  "scripts": {
+    "start": "node -r esm bot",
+    "dev": "node -r esm -r dotenv/config bot",
+    "lint": "standard | snazzy"
+  }
+}
