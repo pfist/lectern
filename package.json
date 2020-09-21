@@ -1,7 +1,7 @@
 {
-  "name": "botstrap",
+  "name": "lectern",
   "version": "1.0.0",
-  "description": "A starting point for Discord bots",
+  "description": "A Discord bot for moderating live discussions on the DarkHorse Podcast Patron Portal",
   "main": "bot.js",
   "engines": {
     "node": "^12.18.0"
