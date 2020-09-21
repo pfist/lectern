@@ -1,7 +1,8 @@
 import BotClient from './structures/BotClient'
+import config from './config'
 import * as Sentry from '@sentry/node'
 
-const client = new BotClient()
+const client = new BotClient(config)
 
 client
   .on('warn', warning => client.log.warn(warning))

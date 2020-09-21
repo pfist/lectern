@@ -9,7 +9,9 @@ class BotClient extends AkairoClient {
       disableMentions: 'everyone',
       ws: {
         intents: [
-          // Add gateway intents here. See this page for reference: https://discord.com/developers/docs/topics/gateway#list-of-intents
+          'GUILDS',
+          'GUILD_MESSAGES',
+          'DIRECT_MESSAGES'
         ]
       }
     })
