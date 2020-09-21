@@ -1,10 +1,9 @@
 import { AkairoClient, CommandHandler, ListenerHandler } from 'discord-akairo'
 import { Signale } from 'signale'
-import config from '../config'
 import ms from 'ms'
 
 class BotClient extends AkairoClient {
-  constructor () {
+  constructor (config) {
     super({ ownerID: process.env.OWNER_ID }, {
       disableMentions: 'everyone',
       ws: {
@@ -16,8 +15,11 @@ class BotClient extends AkairoClient {
       }
     })
 
+    this.config = config
+    this.log = new Signale()
+
     this.commandHandler = new CommandHandler(this, {
-      directory: './commands',
+      directory: 'commands',
       allowMention: true,
       commandUtil: true,
       handleEdits: true,
@@ -34,10 +36,8 @@ class BotClient extends AkairoClient {
     })
 
     this.listenerHandler = new ListenerHandler(this, {
-      directory: './listeners'
+      directory: 'listeners'
     })
-
-    this.log = new Signale()
   }
 
   init () {
@@ -50,8 +50,12 @@ class BotClient extends AkairoClient {
   }
 
   async start () {
-    await this.init()
-    return this.login(process.env.BOT_TOKEN)
+    try {
+      await this.init()
+      return this.login(process.env.BOT_TOKEN)
+    } catch (err) {
+      this.log.error(err)
+    }
   }
 }
 
