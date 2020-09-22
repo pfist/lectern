@@ -23,7 +23,7 @@ class OTPCommand extends Command {
       const otp = queueMessage.embeds[0].fields[1].value.split('\n')
 
       if (otp.includes(message.author.username)) {
-        return message.reply('You are already in the queue.')
+        return message.reply('You are already in the OTP queue.')
       }
 
       if (otp.includes('─')) {
@@ -34,7 +34,7 @@ class OTPCommand extends Command {
 
       const newEmbed = this.client.util.embed(oldEmbed)
         .spliceFields(1, 1, {
-          name: 'On That Point',
+          name: ':point_up: On That Point',
           value: otp
         })
 
