@@ -9,8 +9,8 @@ class ReadyListener extends Listener {
   }
 
   exec () {
-    this.client.user.setActivity('to the discussion • !help', {
-      type: 'LISTENING'
+    this.client.user.setActivity('the chat • !help', {
+      type: 'WATCHING'
     })
 
     this.client.guilds.cache.each(guild => this.client.log.success(`${this.client.user.username} successfully connected to ${guild.name}.`))
