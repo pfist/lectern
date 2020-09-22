@@ -31,10 +31,10 @@ class StartLectureCommand extends Command {
 
     const queue = this.client.util.embed()
       .setTitle(topic)
-      .addField(':speech_left: Current Speaker', 'Waiting...')
-      .addField(':point_up: On That Point', '---')
-      .addField(':raised_hands: Related To That', '---')
-      .addField(':thinking: Clarification Needed', '---')
+      .addField(':speech_left: Current Speaker', '─')
+      .addField(':point_up: On That Point', ['─'])
+      .addField(':raised_hands: Related To That', ['─'])
+      .addField(':thinking: Clarification Needed', ['─'])
       .setTimestamp()
 
     return message.util.send({ embed: queue })
