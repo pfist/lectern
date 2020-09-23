@@ -8,7 +8,8 @@ class HelpCommand extends Command {
       category: 'Info',
       description: {
         name: 'Help',
-        content: 'Get a list of commands for the bot.',
+        short: 'Get a list of available commands for the bot.',
+        long: 'Get a list of available commands for the bot.',
         usage: '!help [command]'
       },
       userPermissions: ['SEND_MESSAGES']
@@ -43,7 +44,7 @@ class HelpCommand extends Command {
         const availableCommands = category.filter(cmd => member.permissions.has(cmd.userPermissions))
 
         if (availableCommands.size !== 0) {
-          const commandList = availableCommands.map(cmd => `**${cmd.prefix ? cmd.prefix : config.commands.defaultPrefix}${cmd.aliases[0]}** - ${cmd.description.content}`).join('\n')
+          const commandList = availableCommands.map(cmd => `**${cmd.prefix ? cmd.prefix : config.commands.defaultPrefix}${cmd.aliases[0]}** - ${cmd.description.short}`).join('\n')
 
           embed.addField(`${category.id} Commands`, commandList)
         }
@@ -54,7 +55,7 @@ class HelpCommand extends Command {
     if (command && member.permissions.has(command.userPermissions)) {
       embed
         .setTitle(command.description.name)
-        .setDescription(command.description.content)
+        .setDescription(command.description.long)
         .addField('Usage', `\`\`\`${command.description.usage}\`\`\``)
     }
 

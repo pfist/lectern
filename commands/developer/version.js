@@ -8,7 +8,8 @@ class VersionCommand extends Command {
       category: 'Developer',
       description: {
         name: 'Version',
-        content: 'Get the bot\'s version number.',
+        short: 'Get the bot\'s version number.',
+        long: 'Get the bot\'s version number.',
         usage: '!version, !v'
       },
       channel: 'guild',

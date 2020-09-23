@@ -7,7 +7,8 @@ class StartLectureCommand extends Command {
       category: 'Moderator',
       description: {
         name: 'Start Lecture',
-        content: 'Open a lecture queue in the current channel',
+        short: 'Open a lecture queue in the current channel',
+        long: 'Open a lecture queue in the current channel. This will display the current speaker and queues for OTP, RTT, and clarifications.',
         usage: '!start <topic>'
       },
       channel: 'guild',

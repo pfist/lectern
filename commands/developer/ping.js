@@ -7,7 +7,8 @@ class PingCommand extends Command {
       category: 'Developer',
       description: {
         name: 'Ping',
-        content: 'Ping the bot to check its latency.',
+        short: 'Check the bot\'s latency',
+        long: 'Check how long (in milliseconds) it takes for the bot to respond.',
         usage: '!ping'
       },
       channel: 'guild',

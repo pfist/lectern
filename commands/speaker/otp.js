@@ -7,7 +7,8 @@ class OTPCommand extends Command {
       category: 'Speaker',
       description: {
         name: 'On That Point',
-        content: 'Request to share an idea that\'s directly related to the current topic',
+        short: 'On that point...',
+        long: 'Request to share an idea that\'s _directly_ related to the current topic',
         usage: '!otp'
       }
     })
