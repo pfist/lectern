@@ -17,9 +17,10 @@ class RTTCommand extends Command {
   async exec (message) {
     const channel = await this.client.channels.cache.get(this.client.config.lectures.channels.lectureQueue)
     const messages = await channel.messages.fetch({ limit: 10 })
+    const filtered = await messages.filter(message => message.embeds.length !== 0)
 
-    if (messages.some(message => message.embeds)) {
-      const queueMessage = await messages.filter(message => message.embeds.length !== 0).first()
+    if (filtered.size >= 1) {
+      const queueMessage = filtered.first()
       const oldEmbed = queueMessage.embeds[0]
       const rtt = queueMessage.embeds[0].fields[2].value.split('\n')
 
