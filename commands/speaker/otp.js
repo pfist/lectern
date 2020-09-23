@@ -25,7 +25,7 @@ class OTPCommand extends Command {
       const otp = queueMessage.embeds[0].fields[1].value.split('\n')
 
       if (otp.includes(message.author.username)) {
-        return message.reply('You are already in the OTP queue.')
+        return message.reply('You are already in the **On That Point** queue.')
       }
 
       if (otp.includes('─')) {

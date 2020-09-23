@@ -25,7 +25,7 @@ class CNCommand extends Command {
       const cn = queueMessage.embeds[0].fields[3].value.split('\n')
 
       if (cn.includes(message.author.username)) {
-        return message.reply('You are already in the Clarification Needed queue.')
+        return message.reply('You are already in the **Clarification Needed** queue.')
       }
 
       if (cn.includes('─')) {

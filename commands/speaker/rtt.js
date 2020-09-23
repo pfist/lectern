@@ -25,7 +25,7 @@ class RTTCommand extends Command {
       const rtt = queueMessage.embeds[0].fields[2].value.split('\n')
 
       if (rtt.includes(message.author.username)) {
-        return message.reply('You are already in the RTT queue.')
+        return message.reply('You are already in the **Related To That** queue.')
       }
 
       if (rtt.includes('─')) {
