@@ -28,6 +28,11 @@ class StartLectureCommand extends Command {
   }
 
   async exec (message, { topic }) {
+    if (message.channel.id !== this.client.config.lectures.channels.lectureQueue) {
+      const lectureQueue = await this.client.channels.cache.get(this.client.config.lectures.channels.lectureQueue)
+      return message.channel.send(`This command only works in the ${lectureQueue} channel.`)
+    }
+
     await message.channel.bulkDelete(3)
 
     const queue = this.client.util.embed()
