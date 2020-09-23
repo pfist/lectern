@@ -28,7 +28,7 @@ class StartLectureCommand extends Command {
   }
 
   async exec (message, { topic }) {
-    await message.delete()
+    await message.channel.bulkDelete(3)
 
     const queue = this.client.util.embed()
       .setTitle(topic)
