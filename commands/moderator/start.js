@@ -35,6 +35,7 @@ class StartLectureCommand extends Command {
 
     await message.channel.bulkDelete(3)
 
+    const lectureChat = await this.client.channels.cache.get(this.client.config.lectures.channels.lectureChat)
     const queue = this.client.util.embed()
       .setTitle(topic)
       .addField(':speech_left: Current Speaker', '─')
@@ -43,7 +44,8 @@ class StartLectureCommand extends Command {
       .addField(':thinking: Clarification Needed', ['─'])
       .setTimestamp()
 
-    return message.util.send({ embed: queue })
+    await message.util.send({ embed: queue })
+    return lectureChat.send(`:white_check_mark: The queue for **${topic}** is now open.`)
   }
 }
 

@@ -26,7 +26,12 @@ class EndLectureCommand extends Command {
     const filtered = await messages.filter(message => message.embeds.length !== 0)
 
     if (filtered.size >= 1) {
-      return message.channel.bulkDelete(10)
+      const queueMessage = filtered.first()
+      const topic = queueMessage.embeds[0].title
+      await message.channel.bulkDelete(10)
+
+      const lectureChat = await this.client.channels.cache.get(this.client.config.lectures.channels.lectureChat)
+      return lectureChat.send(`:no_entry_sign: The queue for **${topic}** is now closed.`)
     } else {
       return message.channel.send('There is no lecture happening right now.')
     }
