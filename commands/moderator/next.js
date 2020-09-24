@@ -51,12 +51,14 @@ class NextSpeakerCommand extends Command {
       let nextSpeaker
 
       switch (queue) {
+        // On That Point
         case 'otp':
           if (otp.includes('─')) {
             return message.channel.send('The **On That Point** queue is empty.')
           }
 
           nextSpeaker = this.client.util.resolveMember(otp[0], message.guild.members.cache)
+          otp.shift()
 
           newEmbed
             .spliceFields(0, 1, {
@@ -65,17 +67,19 @@ class NextSpeakerCommand extends Command {
             })
             .spliceFields(1, 1, {
               name: ':point_up: On That Point',
-              value: otp.length <= 1 ? '─' : otp.shift()
+              value: otp.length === 0 ? '─' : otp
             })
 
           lectureChat.send(`${nextSpeaker} is now speaking.`)
           break
+        // Related To That
         case 'rtt':
           if (rtt.includes('─')) {
             return message.channel.send('The **Related To That** queue is empty.')
           }
 
           nextSpeaker = this.client.util.resolveMember(rtt[0], message.guild.members.cache)
+          rtt.shift()
 
           newEmbed
             .spliceFields(0, 1, {
@@ -84,17 +88,19 @@ class NextSpeakerCommand extends Command {
             })
             .spliceFields(2, 1, {
               name: ':raised_hands: Related To That',
-              value: rtt.length <= 1 ? '─' : rtt.shift()
+              value: rtt.length === 0 ? '─' : rtt
             })
 
           lectureChat.send(`${nextSpeaker} is now speaking.`)
           break
+        // Clarification Needed
         case 'cn':
           if (cn.includes('─')) {
             return message.channel.send('The **Clarification Needed** queue is empty.')
           }
 
           nextSpeaker = this.client.util.resolveMember(cn[0], message.guild.members.cache)
+          cn.shift()
 
           newEmbed
             .spliceFields(0, 1, {
@@ -103,7 +109,7 @@ class NextSpeakerCommand extends Command {
             })
             .spliceFields(3, 1, {
               name: ':thinking: Clarification Needed',
-              value: cn.length <= 1 ? '─' : cn.shift()
+              value: cn.length === 0 ? '─' : cn
             })
 
           lectureChat.send(`${nextSpeaker} is now speaking.`)
