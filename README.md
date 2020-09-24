@@ -1,2 +1,2 @@
 # Lectern
-A Discord bot for moderating live discussions on the DarkHorse Podcast Patron Portal
+A Discord bot for moderating lectures on the DarkHorse Podcast Patron Portal
