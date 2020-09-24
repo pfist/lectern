@@ -24,7 +24,7 @@ class CNCommand extends Command {
       const oldEmbed = queueMessage.embeds[0]
       const cn = queueMessage.embeds[0].fields[3].value.split('\n')
 
-      if (cn.includes(message.author.username)) {
+      if (cn.includes(message.member.displayName)) {
         return message.reply('You are already in the **Clarification Needed** queue.')
       }
 
@@ -32,7 +32,7 @@ class CNCommand extends Command {
         cn.pop()
       }
 
-      cn.push(message.author.username)
+      cn.push(message.member.displayName)
 
       const newEmbed = this.client.util.embed(oldEmbed)
         .spliceFields(3, 1, {

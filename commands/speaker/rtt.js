@@ -24,7 +24,7 @@ class RTTCommand extends Command {
       const oldEmbed = queueMessage.embeds[0]
       const rtt = queueMessage.embeds[0].fields[2].value.split('\n')
 
-      if (rtt.includes(message.author.username)) {
+      if (rtt.includes(message.member.displayName)) {
         return message.reply('You are already in the **Related To That** queue.')
       }
 
@@ -32,7 +32,7 @@ class RTTCommand extends Command {
         rtt.pop()
       }
 
-      rtt.push(message.author.username)
+      rtt.push(message.member.displayName)
 
       const newEmbed = this.client.util.embed(oldEmbed)
         .spliceFields(2, 1, {

@@ -24,7 +24,7 @@ class OTPCommand extends Command {
       const oldEmbed = queueMessage.embeds[0]
       const otp = queueMessage.embeds[0].fields[1].value.split('\n')
 
-      if (otp.includes(message.author.username)) {
+      if (otp.includes(message.member.displayName)) {
         return message.reply('You are already in the **On That Point** queue.')
       }
 
@@ -32,7 +32,7 @@ class OTPCommand extends Command {
         otp.pop()
       }
 
-      otp.push(message.author.username)
+      otp.push(message.member.displayName)
 
       const newEmbed = this.client.util.embed(oldEmbed)
         .spliceFields(1, 1, {
