@@ -12,7 +12,7 @@
     "discord.js": "^12.3.1",
     "esm": "^3.2.25",
     "ms": "^2.1.2",
-    "pretty-ms": "^7.0.0",
+    "pretty-ms": "^7.0.1",
     "signale": "^1.4.0"
   },
   "devDependencies": {
