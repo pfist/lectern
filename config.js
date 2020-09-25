@@ -1,6 +1,6 @@
 const config = {
   commands: {
-    defaultPrefix: '!'
+    defaultPrefix: '?'
   },
   lectures: {
     channels: {
