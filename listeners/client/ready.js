@@ -9,7 +9,7 @@ class ReadyListener extends Listener {
   }
 
   exec () {
-    this.client.user.setActivity('the chat • !help', {
+    this.client.user.setActivity(`the chat • ${this.client.config.commands.defaultPrefix}help`, {
       type: 'WATCHING'
     })
 
