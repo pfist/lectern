@@ -9,7 +9,7 @@ class PingCommand extends Command {
         name: 'Ping',
         short: 'Check the bot\'s latency',
         long: 'Check how long (in milliseconds) it takes for the bot to respond.',
-        usage: '!ping'
+        usage: '?ping'
       },
       channel: 'guild',
       userPermissions: ['MANAGE_GUILD'],

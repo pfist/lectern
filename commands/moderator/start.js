@@ -9,7 +9,7 @@ class StartLectureCommand extends Command {
         name: 'Start Lecture',
         short: 'Open a lecture queue in the current channel',
         long: 'Open a lecture queue in the current channel. This will create a dashboard that displays the current speaker and queues for OTP, RTT, and clarifications.',
-        usage: '!start <topic>'
+        usage: '?start <topic>'
       },
       channel: 'guild',
       userPermissions: ['BAN_MEMBERS']

@@ -9,8 +9,10 @@ class RTTCommand extends Command {
         name: 'Related To That',
         short: 'Related to that...',
         long: 'Request to make a point that\'s _tangentially_ related to the current topic',
-        usage: '!rtt'
-      }
+        usage: '?rtt'
+      },
+      channel: 'guild',
+      userPermissions: ['SEND_MESSAGES']
     })
   }
 

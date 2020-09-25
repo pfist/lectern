@@ -10,7 +10,7 @@ class VersionCommand extends Command {
         name: 'Version',
         short: 'Get the bot\'s version number.',
         long: 'Get the bot\'s version number.',
-        usage: '!version, !v'
+        usage: '?version, ?v'
       },
       channel: 'guild',
       userPermissions: ['MANAGE_GUILD'],

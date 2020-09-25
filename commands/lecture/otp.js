@@ -9,8 +9,10 @@ class OTPCommand extends Command {
         name: 'On That Point',
         short: 'On that point...',
         long: 'Request to share an idea that\'s _directly_ related to the current topic',
-        usage: '!otp'
-      }
+        usage: '?otp'
+      },
+      channel: 'guild',
+      userPermissions: ['SEND_MESSAGES']
     })
   }
 

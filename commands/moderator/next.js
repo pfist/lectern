@@ -9,7 +9,7 @@ class NextSpeakerCommand extends Command {
         name: 'Next Speaker',
         short: 'Select the next speaker in the queue',
         long: 'Select the next speaker in the queue. This will move the next speaker in the queue up to the Current Speaker slot on the dashboard.',
-        usage: '!next <queue>'
+        usage: '?next <queue>'
       },
       channel: 'guild',
       userPermissions: ['BAN_MEMBERS']

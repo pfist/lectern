@@ -9,7 +9,7 @@ class EndLectureCommand extends Command {
         name: 'End Lecture',
         short: 'Close the current lecture queue',
         long: 'Close the current lecture queue. Participants will no longer people to join the queue, and the queue dashboard will be removed.',
-        usage: '!end'
+        usage: '?end'
       },
       channel: 'guild',
       userPermissions: ['BAN_MEMBERS']

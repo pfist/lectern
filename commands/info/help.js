@@ -10,7 +10,7 @@ class HelpCommand extends Command {
         name: 'Help',
         short: 'Get a list of available commands for the bot.',
         long: 'Get a list of available commands for the bot.',
-        usage: '!help [command]'
+        usage: '?help [command]'
       },
       userPermissions: ['SEND_MESSAGES']
     })

@@ -9,8 +9,10 @@ class CNCommand extends Command {
         name: 'Clarification Needed',
         short: 'Clarification needed...',
         long: 'Request a clarification of something that was just said',
-        usage: '!cn, !clarify, !clarification'
-      }
+        usage: '?cn, ?clarify, ?clarification'
+      },
+      channel: 'guild',
+      userPermissions: ['SEND_MESSAGES']
     })
   }
 
