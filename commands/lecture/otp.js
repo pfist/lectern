@@ -4,7 +4,7 @@ class OTPCommand extends Command {
   constructor () {
     super('otp', {
       aliases: ['otp'],
-      category: 'Speaker',
+      category: 'Lecture',
       description: {
         name: 'On That Point',
         short: 'On that point...',

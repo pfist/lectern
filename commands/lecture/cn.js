@@ -1,15 +1,15 @@
 import { Command } from 'discord-akairo'
 
-class RTTCommand extends Command {
+class CNCommand extends Command {
   constructor () {
-    super('rtt', {
-      aliases: ['rtt'],
-      category: 'Speaker',
+    super('cn', {
+      aliases: ['cn', 'clarify', 'clarification'],
+      category: 'Lecture',
       description: {
-        name: 'Related To That',
-        short: 'Related to that...',
-        long: 'Request to make a point that\'s _tangentially_ related to the current topic',
-        usage: '!rtt'
+        name: 'Clarification Needed',
+        short: 'Clarification needed...',
+        long: 'Request a clarification of something that was just said',
+        usage: '!cn, !clarify, !clarification'
       }
     })
   }
@@ -22,22 +22,22 @@ class RTTCommand extends Command {
     if (filtered.size >= 1) {
       const queueMessage = filtered.first()
       const oldEmbed = queueMessage.embeds[0]
-      const rtt = queueMessage.embeds[0].fields[2].value.split('\n')
+      const cn = queueMessage.embeds[0].fields[3].value.split('\n')
 
-      if (rtt.includes(message.member.displayName)) {
-        return message.reply('You are already in the **Related To That** queue.')
+      if (cn.includes(message.member.displayName)) {
+        return message.reply('You are already in the **Clarification Needed** queue.')
       }
 
-      if (rtt.includes('─')) {
-        rtt.pop()
+      if (cn.includes('─')) {
+        cn.pop()
       }
 
-      rtt.push(message.member.displayName)
+      cn.push(message.member.displayName)
 
       const newEmbed = this.client.util.embed(oldEmbed)
-        .spliceFields(2, 1, {
-          name: ':raised_hands: Related To That',
-          value: rtt
+        .spliceFields(3, 1, {
+          name: ':thinking: Clarification Needed',
+          value: cn
         })
 
       queueMessage.edit(newEmbed)
@@ -48,4 +48,4 @@ class RTTCommand extends Command {
   }
 }
 
-export default RTTCommand
+export default CNCommand
