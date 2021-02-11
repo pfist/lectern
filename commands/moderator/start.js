@@ -34,8 +34,6 @@ class StartLectureCommand extends Command {
         return message.channel.send(`This command only works in the ${lectureQueue} channel.`)
       }
 
-      await message.channel.bulkDelete(3)
-
       const lectureChat = await this.client.channels.cache.get(this.client.config.lectures.channels.lectureChat)
       const queue = this.client.util.embed()
         .setTitle(topic)
