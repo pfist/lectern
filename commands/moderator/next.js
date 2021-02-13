@@ -36,8 +36,8 @@ class NextSpeakerCommand extends Command {
 
     await message.delete()
 
-    const messages = await message.channel.messages.fetch({ limit: 10 })
-    const filtered = await messages.filter(message => message.embeds.length !== 0)
+    const messages = await message.channel.messages.fetch()
+    const filtered = await messages.filter(message => message.embeds.length !== 0 && message.embeds[0].footer.text === 'Lecture Queue')
 
     if (filtered.size >= 1) {
       const queueMessage = filtered.first()

@@ -19,7 +19,7 @@ class CNCommand extends Command {
   async exec (message) {
     const channel = await this.client.channels.cache.get(this.client.config.lectures.channels.lectureQueue)
     const messages = await channel.messages.fetch({ limit: 10 })
-    const filtered = await messages.filter(message => message.embeds.length !== 0)
+    const filtered = await messages.filter(message => message.embeds.length !== 0 && message.embeds[0].footer.text === 'Lecture Queue')
 
     if (filtered.size >= 1) {
       const queueMessage = filtered.first()

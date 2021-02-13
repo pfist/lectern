@@ -41,6 +41,7 @@ class StartLectureCommand extends Command {
         .addField(':point_up: On That Point', ['─'])
         .addField(':raised_hands: Related To That', ['─'])
         .addField(':thinking: Clarification Needed', ['─'])
+        .setFooter('Lecture Queue')
         .setTimestamp()
 
       await message.util.send({ embed: queue })
