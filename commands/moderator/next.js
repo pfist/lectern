@@ -36,7 +36,7 @@ class NextSpeakerCommand extends Command {
 
     await message.delete()
 
-    const messages = await message.channel.messages.fetch()
+    const messages = await message.channel.messages.fetch({ limit: 50 })
     const embedMatch = /^Lecture Queue$|^Breakfast with Bret$/gm
     const filtered = await messages.filter(message => message.embeds.length !== 0 && message.embeds[0].footer.text.match(embedMatch))
 
