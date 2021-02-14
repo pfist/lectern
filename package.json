@@ -1,7 +1,7 @@
 {
   "name": "lectern",
   "version": "1.2.2",
-  "description": "A Discord bot for moderating live discussions on the DarkHorse Podcast Patron Portal",
+  "description": "A Discord bot for moderating lectures on the DarkHorse Podcast Patron Portal",
   "main": "bot.js",
   "engines": {
     "node": "^12.18.0"
