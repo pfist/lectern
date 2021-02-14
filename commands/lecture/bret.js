@@ -21,6 +21,7 @@ class BretCommand extends Command {
     const messages = await channel.messages.fetch()
     const messagesWithEmbeds = await messages.filter(message => message.embeds.length !== 0)
     this.client.log.debug(`${messagesWithEmbeds.size} messages with embeds found.`)
+    messagesWithEmbeds.each(message => this.client.log.debug(message.embeds[0]))
 
     if (messagesWithEmbeds.size >= 1) {
       const messagesWithQueues = await messagesWithEmbeds.filter(message => message.embeds[0].footer.text === 'Breakfast with Bret')
