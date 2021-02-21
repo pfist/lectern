@@ -18,10 +18,10 @@ class NextSpeakerCommand extends Command {
 
   * args () {
     const queue = yield {
-      type: ['otp', 'rtt', 'cn'],
+      type: ['otp', 'rtt', 'cn', 'bret'],
       prompt: {
         start: 'Enter the queue you want to pull from.',
-        retry: 'Please choose one of the following: `otp`, `rtt`, or `cn`.'
+        retry: 'Please choose one of the following: `otp`, `rtt`, `cn`, or `bret`.'
       }
     }
 
@@ -36,87 +36,115 @@ class NextSpeakerCommand extends Command {
 
     await message.delete()
 
-    const messages = await message.channel.messages.fetch({ limit: 10 })
-    const filtered = await messages.filter(message => message.embeds.length !== 0)
+    const messages = await message.channel.messages.fetch({ limit: 50 })
+    const embedMatch = /^Lecture Queue$|^Breakfast with Bret$/gm
+    const filtered = await messages.filter(message => message.embeds.length !== 0 && message.embeds[0].footer.text.match(embedMatch))
 
     if (filtered.size >= 1) {
       const queueMessage = filtered.first()
       const oldEmbed = queueMessage.embeds[0]
-      const otp = queueMessage.embeds[0].fields[1].value.split('\n')
-      const rtt = queueMessage.embeds[0].fields[2].value.split('\n')
-      const cn = queueMessage.embeds[0].fields[3].value.split('\n')
-
       const lectureChat = await this.client.channels.cache.get(this.client.config.lectures.channels.lectureChat)
       const newEmbed = this.client.util.embed(oldEmbed)
+
       let nextSpeaker
 
-      switch (queue) {
-        // On That Point
-        case 'otp':
-          if (otp.includes('─')) {
-            return message.channel.send('The **On That Point** queue is empty.')
-          }
+      if (queue === 'bret' && queueMessage.embeds[0].footer.text === 'Breakfast with Bret') {
+        const bret = queueMessage.embeds[0].fields[1].value.split('\n')
 
-          nextSpeaker = this.client.util.resolveMember(otp[0], message.guild.members.cache)
-          otp.shift()
+        if (bret.includes('─')) {
+          return message.channel.send('The **Breakfast with Bret** queue is empty.')
+        }
 
-          newEmbed
-            .spliceFields(0, 1, {
-              name: ':speech_left: Current Speaker',
-              value: `**${nextSpeaker.displayName}**`
-            })
-            .spliceFields(1, 1, {
-              name: ':point_up: On That Point',
-              value: otp.length === 0 ? '─' : otp
-            })
+        nextSpeaker = this.client.util.resolveMember(bret[0], message.guild.members.cache)
+        bret.shift()
 
-          lectureChat.send(`${nextSpeaker} is now speaking.`)
-          break
-        // Related To That
-        case 'rtt':
-          if (rtt.includes('─')) {
-            return message.channel.send('The **Related To That** queue is empty.')
-          }
+        newEmbed
+          .spliceFields(0, 1, {
+            name: ':speech_left: Current Speaker',
+            value: `**${nextSpeaker.displayName}**`
+          })
+          .spliceFields(1, 1, {
+            name: ':point_up: Waiting to Speak',
+            value: bret.length === 0 ? '─' : bret
+          })
 
-          nextSpeaker = this.client.util.resolveMember(rtt[0], message.guild.members.cache)
-          rtt.shift()
-
-          newEmbed
-            .spliceFields(0, 1, {
-              name: ':speech_left: Current Speaker',
-              value: `**${nextSpeaker.displayName}**`
-            })
-            .spliceFields(2, 1, {
-              name: ':raised_hands: Related To That',
-              value: rtt.length === 0 ? '─' : rtt
-            })
-
-          lectureChat.send(`${nextSpeaker} is now speaking.`)
-          break
-        // Clarification Needed
-        case 'cn':
-          if (cn.includes('─')) {
-            return message.channel.send('The **Clarification Needed** queue is empty.')
-          }
-
-          nextSpeaker = this.client.util.resolveMember(cn[0], message.guild.members.cache)
-          cn.shift()
-
-          newEmbed
-            .spliceFields(0, 1, {
-              name: ':speech_left: Current Speaker',
-              value: `**${nextSpeaker.displayName}**`
-            })
-            .spliceFields(3, 1, {
-              name: ':thinking: Clarification Needed',
-              value: cn.length === 0 ? '─' : cn
-            })
-
-          lectureChat.send(`${nextSpeaker} is now speaking.`)
-          break
+        lectureChat.send(`${nextSpeaker} is now speaking.`)
+        return queueMessage.edit(newEmbed)
       }
 
-      return queueMessage.edit(newEmbed)
+      if (queueMessage.embeds[0].footer.text === 'Lecture Queue') {
+        const otp = queueMessage.embeds[0].fields[1].value.split('\n')
+        const rtt = queueMessage.embeds[0].fields[2].value.split('\n')
+        const cn = queueMessage.embeds[0].fields[3].value.split('\n')
+
+        switch (queue) {
+          // On That Point
+          case 'otp':
+            if (otp.includes('─')) {
+              return message.channel.send('The **On That Point** queue is empty.')
+            }
+
+            nextSpeaker = this.client.util.resolveMember(otp[0], message.guild.members.cache)
+            otp.shift()
+
+            newEmbed
+              .spliceFields(0, 1, {
+                name: ':speech_left: Current Speaker',
+                value: `**${nextSpeaker.displayName}**`
+              })
+              .spliceFields(1, 1, {
+                name: ':point_up: On That Point',
+                value: otp.length === 0 ? '─' : otp
+              })
+
+            lectureChat.send(`${nextSpeaker} is now speaking.`)
+            break
+          // Related To That
+          case 'rtt':
+            if (rtt.includes('─')) {
+              return message.channel.send('The **Related To That** queue is empty.')
+            }
+
+            nextSpeaker = this.client.util.resolveMember(rtt[0], message.guild.members.cache)
+            rtt.shift()
+
+            newEmbed
+              .spliceFields(0, 1, {
+                name: ':speech_left: Current Speaker',
+                value: `**${nextSpeaker.displayName}**`
+              })
+              .spliceFields(2, 1, {
+                name: ':raised_hands: Related To That',
+                value: rtt.length === 0 ? '─' : rtt
+              })
+
+            lectureChat.send(`${nextSpeaker} is now speaking.`)
+            break
+          // Clarification Needed
+          case 'cn':
+            if (cn.includes('─')) {
+              return message.channel.send('The **Clarification Needed** queue is empty.')
+            }
+
+            nextSpeaker = this.client.util.resolveMember(cn[0], message.guild.members.cache)
+            cn.shift()
+
+            newEmbed
+              .spliceFields(0, 1, {
+                name: ':speech_left: Current Speaker',
+                value: `**${nextSpeaker.displayName}**`
+              })
+              .spliceFields(3, 1, {
+                name: ':thinking: Clarification Needed',
+                value: cn.length === 0 ? '─' : cn
+              })
+
+            lectureChat.send(`${nextSpeaker} is now speaking.`)
+            break
+        }
+
+        return queueMessage.edit(newEmbed)
+      }
     }
   }
 }

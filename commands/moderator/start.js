@@ -28,24 +28,27 @@ class StartLectureCommand extends Command {
   }
 
   async exec (message, { topic }) {
-    if (message.channel.id !== this.client.config.lectures.channels.lectureQueue) {
-      const lectureQueue = await this.client.channels.cache.get(this.client.config.lectures.channels.lectureQueue)
-      return message.channel.send(`This command only works in the ${lectureQueue} channel.`)
+    try {
+      if (message.channel.id !== this.client.config.lectures.channels.lectureQueue) {
+        const lectureQueue = await this.client.channels.cache.get(this.client.config.lectures.channels.lectureQueue)
+        return message.channel.send(`This command only works in the ${lectureQueue} channel.`)
+      }
+
+      const lectureChat = await this.client.channels.cache.get(this.client.config.lectures.channels.lectureChat)
+      const queue = this.client.util.embed()
+        .setTitle(topic)
+        .addField(':speech_left: Current Speaker', '─')
+        .addField(':point_up: On That Point', ['─'])
+        .addField(':raised_hands: Related To That', ['─'])
+        .addField(':thinking: Clarification Needed', ['─'])
+        .setFooter('Lecture Queue')
+        .setTimestamp()
+
+      await message.util.send({ embed: queue })
+      return lectureChat.send(`:white_check_mark: The queue for **${topic}** is now open.`)
+    } catch (e) {
+      this.client.log.error(e)
     }
-
-    await message.channel.bulkDelete(3)
-
-    const lectureChat = await this.client.channels.cache.get(this.client.config.lectures.channels.lectureChat)
-    const queue = this.client.util.embed()
-      .setTitle(topic)
-      .addField(':speech_left: Current Speaker', '─')
-      .addField(':point_up: On That Point', ['─'])
-      .addField(':raised_hands: Related To That', ['─'])
-      .addField(':thinking: Clarification Needed', ['─'])
-      .setTimestamp()
-
-    await message.util.send({ embed: queue })
-    return lectureChat.send(`:white_check_mark: The queue for **${topic}** is now open.`)
   }
 }
 

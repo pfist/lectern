@@ -22,16 +22,25 @@ class EndLectureCommand extends Command {
       return message.channel.send(`This command only works in the ${lectureQueue} channel.`)
     }
 
-    const messages = await message.channel.messages.fetch({ limit: 10 })
-    const filtered = await messages.filter(message => message.embeds.length !== 0)
+    await message.delete()
+
+    const messages = await message.channel.messages.fetch({ limit: 50 })
+    const embedMatch = /^Lecture Queue$|^Breakfast with Bret$/gm
+    const filtered = await messages.filter(message => message.embeds.length !== 0 && message.embeds[0].footer.text.match(embedMatch))
 
     if (filtered.size >= 1) {
       const queueMessage = filtered.first()
-      const topic = queueMessage.embeds[0].title
-      await message.channel.bulkDelete(10)
-
+      await queueMessage.delete()
       const lectureChat = await this.client.channels.cache.get(this.client.config.lectures.channels.lectureChat)
-      return lectureChat.send(`:no_entry_sign: The queue for **${topic}** is now closed.`)
+
+      if (queueMessage.embeds[0].footer.text === 'Lecture Queue') {
+        const topic = queueMessage.embeds[0].title
+        return lectureChat.send(`:no_entry_sign: The queue for **${topic}** is now closed.`)
+      }
+
+      if (queueMessage.embeds[0].footer.text === 'Breakfast with Bret') {
+        return lectureChat.send(':no_entry_sign: The queue for **Breakfast with Bret** is now closed.')
+      }
     } else {
       return message.channel.send('There is no lecture happening right now.')
     }
